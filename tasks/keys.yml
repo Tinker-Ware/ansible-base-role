@@ -1,0 +1,23 @@
+- name: Add authorized_keys
+  authorized_key:
+    user="{{ item.0.name }}"
+    path="/home/{{ item.0.name }}/.ssh/authorized_keys"
+    key="{{ item.1 }}"
+  with_subelements:
+    - users | default({})
+    - authorized_keys
+  when: users is defined
+
+- include_vars: "{{ inventory_dir }}/host_files/{{ inventory_hostname }}/keys/private"
+  when: (private_key is defined and private_key)
+
+- name: Add private key
+  copy:
+    content: "{{ priv_k }}"
+    dest: "/home/{{ server_user }}/.ssh/{{ private_key_name }}"
+    mode: 0600
+    owner: "{{ server_user }}"
+    group: "{{ server_group }}"
+  when: (private_key is defined and private_key)
+  sudo: yes
+  sudo_user: "{{ server_user }}"

@@ -1,0 +1,22 @@
+- name: prepare - create tinker path if necessary
+  file:
+    dest: "{{ item }}"
+    owner: "{{ server_user }}"
+    group: "{{ server_group }}"
+    mode: 0755
+    state: directory
+  sudo: yes
+  with_items:
+    - "/opt/tinker"
+    - "/opt/tinker/shared_files"
+    - "/home/{{ server_user }}/.ssh/"
+
+- name: prepare - create necessary files
+  file:
+    dest: "{{ item }}"
+    owner: "{{ server_user }}"
+    group: "{{ server_group }}"
+    state: touch
+  sudo: yes
+  with_items:
+    - "/home/{{ server_user }}/.ssh/config"

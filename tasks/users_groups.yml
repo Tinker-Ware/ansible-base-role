@@ -1,0 +1,37 @@
+- name: Create server_group
+  group:
+    name="{{ server_group }}"
+    state=present
+    system=yes
+
+- name: Create server_user
+  user:
+    name="{{ server_user }}"
+    state=present
+    group="{{ server_group }}"
+    shell=/bin/bash
+    createhome=yes
+
+- name: Ensure defined groups are present
+  group:
+    name="{{ item.value.group }}"
+    system=yes
+    state=present
+  with_dict: users | default({})
+  when: users is defined
+
+- name: Ensure defined users are present
+  user:
+    name="{{ item.key }}"
+    state=present
+    group="{{ item.value.group }}"
+    shell=/bin/bash
+    generate_ssh_key="{{ item.value.generate_ssh_key }}"
+    ssh_key_bits=2048
+    ssh_key_file=.ssh/ansible_generated
+    createhome=yes
+    password="{{ item.value.password }}"
+    groups="{{ item.value.groups }}"
+  with_dict: users | default({})
+  when: users is defined
+

@@ -1,0 +1,18 @@
+---
+- include: packages.yml
+  tags: packages
+
+- include: users_groups.yml
+  tags: users_groups
+
+- include: paths.yml
+  tags: paths
+
+- include: keys.yml
+  tags: keys
+
+- include: github.yml
+  tags: github
+
+- include: cronjobs.yml
+  tags: cronjobs
