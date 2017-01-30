@@ -1,14 +1,14 @@
 - name: Add cron jobs
   cron:
-    name="{{ item.key  }}"
-    minute="{{ item.value.minute | default('*') }}"
-    day="{{ item.value.day | default('*') }}"
-    weekday="{{ item.value.weekday | default('*') }}"
-    month="{{ item.value.month | default('*') }}"
-    hour="{{ item.value.hour | default('*') }}"
-    job="{{ item.value.job }}"
+    name="{{ item.name  }}"
+    minute="{{ item.minute | default('*') }}"
+    day="{{ item.day | default('*') }}"
+    weekday="{{ item.weekday | default('*') }}"
+    month="{{ item.month | default('*') }}"
+    hour="{{ item.hour | default('*') }}"
+    job="{{ item.job }}"
     state=present
-    special_time="{{ item.value.special_time | default('*') }}"
-    user="{{ item.value.user | default('*') }}"
+    special_time="{{ item.special_time | default('*') }}"
+    user="{{ item.user | default('*') }}"
   when: cronjobs is defined
-  with_dict: cronjobs | default({})
+  with_items: "{{ cronjobs | default([]) }}"

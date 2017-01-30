@@ -4,7 +4,7 @@
     path="/home/{{ item.0.name }}/.ssh/authorized_keys"
     key="{{ item.1 }}"
   with_subelements:
-    - users | default({})
+    - "{{ users | default([]) }}"
     - authorized_keys
   when: users is defined
 

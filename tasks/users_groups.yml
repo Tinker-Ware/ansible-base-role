@@ -14,24 +14,23 @@
 
 - name: Ensure defined groups are present
   group:
-    name="{{ item.value.group }}"
+    name="{{ item.group }}"
     system=yes
     state=present
-  with_dict: users | default({})
+  with_items: "{{ users  | default([]) }}"
   when: users is defined
 
 - name: Ensure defined users are present
   user:
-    name="{{ item.key }}"
+    name="{{ item.name }}"
     state=present
-    group="{{ item.value.group }}"
+    group="{{ item.group }}"
     shell=/bin/bash
-    generate_ssh_key="{{ item.value.generate_ssh_key }}"
+    generate_ssh_key="{{ item.generate_ssh_key }}"
     ssh_key_bits=2048
     ssh_key_file=.ssh/ansible_generated
     createhome=yes
-    password="{{ item.value.password }}"
-    groups="{{ item.value.groups }}"
-  with_dict: users | default({})
+    password="{{ item.password }}"
+    groups="{{ item.extra_groups }}"
+  with_items: "{{ users | default([]) }}"
   when: users is defined
-
