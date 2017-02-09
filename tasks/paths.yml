@@ -20,3 +20,14 @@
   sudo: yes
   with_items:
     - "/home/{{ server_user }}/.ssh/config"
+
+- name: prepare - create web path
+  file:
+    dest: "{{ item }}"
+    owner: "{{ server_user }}"
+    group: www-data
+    mode: 0755
+    state: directory
+  sudo: yes
+  with_items:
+    - "/var/www/files/assets"
