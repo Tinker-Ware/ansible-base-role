@@ -1,12 +1,16 @@
+- name: Verify if authorized_keys exist
+  local_action: stat path="{{ inventory_dir }}/host_files/{{ inventory_hostname }}/keys/authorized_keys"
+  register: p
+  sudo: no
+
 - name: Add authorized_keys
   authorized_key:
-    user="{{ item.0.name }}"
-    path="/home/{{ item.0.name }}/.ssh/authorized_keys"
-    key="{{ item.1 }}"
-  with_subelements:
-    - "{{ users | default([]) }}"
-    - authorized_keys
-  when: users is defined
+    user="{{ item.name }}"
+    path="/home/{{ item.name }}/.ssh/authorized_keys"
+    key="{{ lookup('file', inventory_dir + '/host_files/' + inventory_hostname + '/keys/authorized_keys') }}"
+    state=present
+  when: (users is defined) and (p.stat.exists)
+  with_items: "{{ users }}"
 
 - include_vars: "{{ inventory_dir }}/host_files/{{ inventory_hostname }}/keys/private"
   when: (private_key is defined and private_key)
