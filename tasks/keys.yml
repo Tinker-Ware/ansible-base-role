@@ -8,16 +8,18 @@
     - authorized_keys
   when: users is defined
 
-- include_vars: "{{ inventory_dir }}/host_files/{{ inventory_hostname }}/keys/private"
-  when: (private_key is defined and private_key)
+- name: Verify if key exists
+  local_action: stat path="{{ inventory_dir }}/host_files/{{ inventory_hostname }}/keys/private"
+  register: p
+  sudo: no
 
 - name: Add private key
   copy:
-    content: "{{ priv_k }}"
+    src: "{{ inventory_dir }}/host_files/{{ inventory_hostname }}/keys/private"
     dest: "/home/{{ server_user }}/.ssh/{{ private_key_name }}"
     mode: 0600
     owner: "{{ server_user }}"
     group: "{{ server_group }}"
-  when: (private_key is defined and private_key)
+  when: p.stat.exists and private_key
   sudo: yes
   sudo_user: "{{ server_user }}"
