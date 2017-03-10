@@ -1,2 +1,2 @@
 # ansible-base-role
-Ansible role that includes Basic configurations for a server. 
+Ansible role that includes Basic configurations for a server.
