@@ -9,6 +9,7 @@
   with_items:
     - "/opt/tinker"
     - "/opt/tinker/shared_files"
+    - "/opt/tinker/shared_files/logs"
     - "/home/{{ server_user }}/.ssh/"
 
 - name: prepare - create necessary files
