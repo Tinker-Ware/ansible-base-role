@@ -11,6 +11,9 @@
 - include: keys.yml
   tags: keys
 
+- include: ssh.yml
+  tags: ssh
+
 - include: github.yml
   tags: github
 

@@ -3,6 +3,12 @@
     name=sudo
     state=present
 
+- name: Udpdate to latest git version
+  apt_repository:
+    repo: deb http://ftp.us.debian.org/debian testing main contrib non-free
+    state: present
+    update_cache: yes
+
 - name: Ensure git is installed
   apt:
     name=git
