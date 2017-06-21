@@ -1,0 +1,9 @@
+- name: Append ssh config for git
+  lineinfile:
+    dest: "/etc/ssh/sshd_config"
+    line:  "PasswordAuthentication yes"
+  sudo: yes
+
+- service:
+    name: ssh
+    state: restarted
