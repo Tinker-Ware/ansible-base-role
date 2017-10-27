@@ -1,21 +1,21 @@
 ---
-- include: packages.yml
+- include_tasks: packages.yml
   tags: packages
 
-- include: users_groups.yml
+- include_tasks: users_groups.yml
   tags: users_groups
 
-- include: paths.yml
+- include_tasks: paths.yml
   tags: paths
 
-- include: keys.yml
+- include_tasks: keys.yml
   tags: keys
 
-- include: ssh.yml
+- include_tasks: ssh.yml
   tags: ssh
 
-- include: github.yml
+- include_tasks: github.yml
   tags: github
 
-- include: cronjobs.yml
+- include_tasks: cronjobs.yml
   tags: cronjobs

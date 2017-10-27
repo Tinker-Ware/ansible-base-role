@@ -4,9 +4,9 @@
     regexp: "PasswordAuthentication no"
     line:  "PasswordAuthentication yes"
     state: present
-  sudo: yes
+  become: yes
 
 - service:
     name: ssh
     state: restarted
-  sudo: yes
+  become: yes

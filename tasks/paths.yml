@@ -5,7 +5,7 @@
     group: "{{ server_group }}"
     mode: 0755
     state: directory
-  sudo: yes
+  become: yes
   with_items:
     - "/opt/tinker"
     - "/opt/tinker/shared_files"
@@ -18,7 +18,7 @@
     owner: "{{ server_user }}"
     group: "{{ server_group }}"
     state: touch
-  sudo: yes
+  become: yes
   with_items:
     - "/home/{{ server_user }}/.ssh/config"
 
@@ -29,6 +29,6 @@
     group: www-data
     mode: 0755
     state: directory
-  sudo: yes
+  become: yes
   with_items:
     - "/var/www/files/assets"
