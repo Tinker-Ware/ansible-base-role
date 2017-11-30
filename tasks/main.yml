@@ -1,6 +1,8 @@
 ---
 - include_tasks: gzip_hlinks.yml
 
+- include_tasks: enviroment.yml
+
 - include_tasks: packages.yml
   tags: packages
 
