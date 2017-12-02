@@ -1,8 +1,0 @@
----
-
-- name: ensure en_US.UTF-8 is present
-  become: yes
-  shell: |
-    export LANG=en_US.UTF-8
-    export LC_ALL=en_US.UTF-8
-  ignore_errors: yes
