@@ -1,3 +1,8 @@
+- name: Remove binutils package
+  apt:
+    name: binutils
+    state: absent
+
 - name: Ensure sudo is installed
   apt:
     name=sudo
