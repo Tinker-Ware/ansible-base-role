@@ -1,7 +1,7 @@
 - name: Verify if authorized_keys exist
   local_action: stat path="{{ inventory_dir }}/host_files/{{ inventory_hostname }}/keys/authorized_keys"
   register: p
-  sudo: no
+  become: no
 
 - name: Add authorized_keys
   authorized_key:
@@ -15,7 +15,7 @@
 - name: Verify if key exists
   local_action: stat path="{{ inventory_dir }}/host_files/{{ inventory_hostname }}/keys/private"
   register: p
-  sudo: no
+  become: no
 
 - name: Add private key
   copy:
@@ -25,5 +25,5 @@
     owner: "{{ server_user }}"
     group: "{{ server_group }}"
   when: p.stat.exists and private_key
-  sudo: yes
-  sudo_user: "{{ server_user }}"
+  become: yes
+  become_user: "{{ server_user }}"
